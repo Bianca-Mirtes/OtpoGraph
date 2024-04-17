@@ -2,15 +2,15 @@ package grafo_direcionado;
 import java.util.ArrayList;
 
 public class Vertice<TIPO> {
-    private TIPO valor;
+    private TIPO valor; // nome da atividade
     private ArrayList<Aresta<TIPO>> arestasEntrada;
     private ArrayList<Aresta<TIPO>> arestasSaida;
-    private TIPO grauPrioridade; // Grau de prioridade do vertice
-    //private ArrayList<Vertice<TIPO>> verticesAdj = new ArrayList<>();
+    private ArrayList<Vertice<TIPO>> verticesAdj = new ArrayList<>();
+    private TIPO tipoAtv; // compromisso (0) ou tradicional (1)
 
-    public Vertice(TIPO valor, TIPO grau){
+    public Vertice(TIPO valor, TIPO tipoAtv){
         this.valor = valor;
-        this.grauPrioridade = grau;
+        this.tipoAtv = tipoAtv;
         this.arestasEntrada = new ArrayList<>();
         this.arestasSaida = new ArrayList<>();
     }
@@ -23,33 +23,22 @@ public class Vertice<TIPO> {
         this.valor = valor;
     }
 
-    public TIPO getGrauPrioridade() {
-        return grauPrioridade;
+    public TIPO geTipoAtv(){
+        return tipoAtv;
     }
 
-    public void setGrauPrioridade(TIPO grauPrioridade) {
-        this.grauPrioridade = grauPrioridade;
+    public void setTipoAtv(TIPO tipo){
+        this.tipoAtv = tipo;
     }
 
-    /*public void setVerticesAdj(){
+    public void setVerticesAdj(){
         if(verticesAdj.size() != 0){
             verticesAdj.clear();            
         }
-        for (Aresta<TIPO> aresta : this.arestasEntrada) {
-            if(aresta.getVerticeInicial().getValor() == this.valor){
-                verticesAdj.add(aresta.getVerticeFinal());
-            }else{
-                verticesAdj.add(aresta.getVerticeInicial());
-            }
-        }
         for (Aresta<TIPO> aresta : this.arestasSaida) {
-            if(aresta.getVerticeInicial().getValor() == this.valor){
-                verticesAdj.add(aresta.getVerticeFinal());
-            }else{
-                verticesAdj.add(aresta.getVerticeInicial());
-            }
+            verticesAdj.add(aresta.getVerticeFinal());
         }
-    }*/
+    }
 
     public ArrayList<Aresta<TIPO>> getArestasEntradArestas() {
         return arestasEntrada;
@@ -59,10 +48,9 @@ public class Vertice<TIPO> {
         return arestasSaida;
     }
 
-
-    /*public ArrayList<Vertice<TIPO>> getVerticesAdj() {
+    public ArrayList<Vertice<TIPO>> getVerticesAdj() {
         return verticesAdj;
-    }*/
+    }
 
     public void AddArestaEntrada (Aresta<TIPO> aresta){
         this.arestasEntrada.add(aresta);

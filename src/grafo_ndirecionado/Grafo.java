@@ -22,13 +22,13 @@ public class Grafo<TIPO> {
 
     }
 
-    public void AddAresta(TIPO verticeInical, TIPO verticeFinal){
+    public void AddAresta(TIPO verticeInical, TIPO verticeFinal, TIPO peso){
         Vertice<TIPO> vFinal = getVertice(verticeFinal);
         Vertice<TIPO> vInicial = getVertice(verticeInical);
         if(vInicial != null && vFinal !=null){
-            Aresta<TIPO> newAresta = new Aresta<TIPO>(vInicial, vFinal);
+            Aresta<TIPO> newAresta = new Aresta<TIPO>(vInicial, vFinal, peso);
             vInicial.AddAresta(newAresta);
-            //vFinal.AddAresta(newAresta);
+            vFinal.AddAresta(newAresta);
             this.arestas.add(newAresta);
         }
     }
@@ -45,12 +45,22 @@ public class Grafo<TIPO> {
     }
 
     public Aresta<TIPO> findAresta(Vertice<TIPO> v1, Vertice<TIPO> v2) {
-        Aresta<TIPO> arestaProcurada = new Aresta<TIPO>(v1, v2);
+        // para quando não tem peso
+        /*Aresta<TIPO> arestaProcurada = new Aresta<TIPO>(v1, v2, peso);
         if(this.arestas.contains(arestaProcurada)){
             return arestaProcurada;
         }else{
             return null;
+        }*/
+
+         // Percorre as arestas do vértice de origem
+         for (Aresta<TIPO> aresta : v1.getArestas()) {
+            // Verifica se a aresta conecta os vértices especificados
+            if (aresta.getVerticeFinal().equals(v2)) {
+                return aresta;
+            }
         }
+        return null;
     }
 
     public int Diametro(){
@@ -187,7 +197,7 @@ public class Grafo<TIPO> {
     public void buscaEmProfundidade(){
 
     }
-
+    
     public void buscaEmLargura(){
         ArrayList<Vertice<TIPO>> vMarcados = new ArrayList<>(); // vertices marcados
         ArrayList<Aresta<TIPO>> aVisitadas = new ArrayList<>(); // arestas visitadas

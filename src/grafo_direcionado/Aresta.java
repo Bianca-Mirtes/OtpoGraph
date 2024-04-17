@@ -4,7 +4,7 @@ package grafo_direcionado;
 public class Aresta<TIPO> {
     private Vertice<TIPO> verticeInicial;
     private Vertice<TIPO> verticeFinal;
-    private TIPO peso;
+    private TIPO peso; // duração da atividade referente ao vertice inicial
 
     public Aresta(Vertice<TIPO> vI, Vertice<TIPO> vF, TIPO peso){
         this.verticeInicial = vI;

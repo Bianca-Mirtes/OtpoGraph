@@ -6,17 +6,23 @@ import java.util.Arrays;
 import java.util.Comparator;
 
 public class Grafo<TIPO> {
-    private ArrayList<Vertice<TIPO>> vertices;
-    private ArrayList<Aresta<TIPO>> arestas;
+    private ArrayList<Vertice<TIPO>> vertices; // atividades
+    private ArrayList<Aresta<TIPO>> arestas;   // duração das atividades
+    private float startDay;     // hora de inicio das atividades
+    private float finishDay;    // hora de finalização
+    private float workingHours; // horas uteis
 
-    public Grafo(){
+    public Grafo(float start, float finish){
         this.vertices =  new ArrayList<>();
         this.arestas = new ArrayList<>();
+        this.startDay=start;
+        this.finishDay=finish;
+        this.workingHours = start - finish;
     }
 
-    public void AddVertice(TIPO tarefa, TIPO grauDePrioridade){
-        if(tarefa != null && grauDePrioridade != null){
-            Vertice<TIPO> newVertice =  new Vertice<>(tarefa, grauDePrioridade);
+    public void AddVertice(TIPO tarefa, TIPO tipo){
+        if(tarefa != null && tipo != null){
+            Vertice<TIPO> newVertice =  new Vertice<>(tarefa, tipo);
             this.vertices.add(newVertice);                        
         }
     }
@@ -27,7 +33,7 @@ public class Grafo<TIPO> {
         if(vInicial != null && vFinal !=null){
             Aresta<TIPO> newAresta = new Aresta<TIPO>(vInicial, vFinal, peso);
             vInicial.AddArestaSaida(newAresta);
-            vFinal.AddArestaSaida(newAresta);
+            vFinal.AddArestaEntrada(newAresta);
             this.arestas.add(newAresta);
         }
     }
@@ -43,14 +49,16 @@ public class Grafo<TIPO> {
         return verticeCurrent;
     }
 
-    /*public Aresta<TIPO> findAresta(Vertice<TIPO> v1, Vertice<TIPO> v2) {
-        Aresta<TIPO> arestaProcurada = new Aresta<TIPO>(v1, v2, peso);
-        if(this.arestas.contains(arestaProcurada)){
-            return arestaProcurada;
-        }else{
-            return null;
+    public Aresta<TIPO> findAresta(Vertice<TIPO> v1, Vertice<TIPO> v2) {
+        // Percorre as arestas do vértice de origem
+        for (Aresta<TIPO> aresta : v1.getArestasSaida()) {
+            // Verifica se a aresta conecta os vértices especificados
+            if (aresta.getVerticeFinal().equals(v2)) {
+                return aresta;
+            }
         }
-    }*/
+        return null;
+    }
 
     /*public int Diametro(){
         int tamCaminho = 0;
