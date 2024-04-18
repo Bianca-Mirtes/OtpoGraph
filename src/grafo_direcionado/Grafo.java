@@ -20,6 +20,16 @@ public class Grafo<TIPO> {
         this.workingHours = start - finish;
     }
 
+    /**
+     * Este método adiciona o vértice ao Grafo
+     * 
+     * @param tarefa - descrição da tarefa, exemplo: "Aula de Natação"
+     * @param tipo   - (0) compromisso ou (1) tarefa normal
+     * @param peso   - o tempo da tarefa, este parâmetro servirá para atribuir
+     *               posteriormente este peso
+     *               a todas as arestas que saírem do vértice
+     * @return a posição do vértice no vetor --parâmetro opcional
+     */
     public int AddVertice(TIPO tarefa, TIPO tipo, TIPO peso) {
         if (tarefa != null && tipo != null) {
             Vertice<TIPO> newVertice = new Vertice<>(tarefa, tipo, peso);
@@ -52,6 +62,16 @@ public class Grafo<TIPO> {
         return verticeCurrent;
     }
 
+    /**
+     * Este método retorna o vértice pelo seu índice no ArrayList
+     * 
+     * @param index - o índice do vértice requisitado
+     * @return o get(index) do ArrayList vertices
+     */
+    public Vertice<TIPO> getVerticePorIndex(int index) {
+        return this.vertices.get(index);
+    }
+
     public Aresta<TIPO> findAresta(Vertice<TIPO> v1, Vertice<TIPO> v2) {
         // Percorre as arestas do vértice de origem
         for (Aresta<TIPO> aresta : v1.getArestasSaida()) {
@@ -61,6 +81,58 @@ public class Grafo<TIPO> {
             }
         }
         return null;
+    }
+
+    /**
+     * Este método retorna a quantidade de vértices inseridos no grafo
+     * 
+     * @return o size() do ArrayList vertices
+     */
+    public int getQntdVertices() {
+        return this.vertices.size();
+    }
+
+    /**
+     * Este método gera um grafo completo a partir dos vértices inseridos no grafo
+     */
+    public void gerarGrafoCompleto() {
+        for (int i = 0; i < this.getQntdVertices(); i++) {
+            for (int j = 0; j < this.getQntdVertices(); j++) {
+                this.AddAresta(i, j);
+            }
+        }
+    }
+
+    public void GerarMatrizDeAdj() {
+        int[][] matrizAdj = new int[this.vertices.size()][this.vertices.size()];
+        for (int ii = 0; ii < vertices.size(); ii++) {
+            for (int jj = 0; jj < vertices.size(); jj++) {
+                if (findAresta(vertices.get(ii), vertices.get(jj)) != null) {
+                    matrizAdj[ii][jj] = 1;
+                } else {
+                    matrizAdj[ii][jj] = 0;
+                }
+            }
+        }
+        MostrarMatrizAdj(matrizAdj);
+    }
+
+    public void MostrarMatrizAdj(int[][] matrizAdj) {
+        System.out.print("  ");
+        for (int i = 0; i < this.vertices.size(); i++) {
+            System.out.print("|" + i);
+        }
+        System.out.println(" |");
+
+        int b = 0;
+        for (int[] linha : matrizAdj) {
+            System.out.print("|" + b + "|");
+            for (int coluna : linha) {
+                System.out.print(coluna + " ");
+            }
+            System.out.print("|\n");
+            b++;
+        }
     }
 
     /*
@@ -230,36 +302,4 @@ public class Grafo<TIPO> {
      * }
      * }
      */
-
-    public void GerarMatrizDeAdj() {
-        int[][] matrizAdj = new int[this.vertices.size()][this.vertices.size()];
-        for (int ii = 0; ii < vertices.size(); ii++) {
-            for (int jj = 0; jj < vertices.size(); jj++) {
-                if (findAresta(vertices.get(ii), vertices.get(jj)) != null) {
-                    matrizAdj[ii][jj] = 1;
-                } else {
-                    matrizAdj[ii][jj] = 0;
-                }
-            }
-        }
-        MostrarMatrizAdj(matrizAdj);
-    }
-
-    public void MostrarMatrizAdj(int[][] matrizAdj) {
-        System.out.print("  ");
-        for (int i = 0; i < this.vertices.size(); i++) {
-            System.out.print("|" + i);
-        }
-        System.out.println(" |");
-
-        int b = 0;
-        for (int[] linha : matrizAdj) {
-            System.out.print("|" + b + "|");
-            for (int coluna : linha) {
-                System.out.print(coluna + " ");
-            }
-            System.out.print("|\n");
-            b++;
-        }
-    }
 }
