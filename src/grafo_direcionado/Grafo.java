@@ -29,12 +29,12 @@ public class Grafo<TIPO> {
         return -1;
     }
 
-    public void AddAresta(int verticeInical, int verticeFinal, TIPO peso) {
+    public void AddAresta(int verticeInical, int verticeFinal) {
         Vertice<TIPO> vFinal = getVertice(this.vertices.get(verticeFinal).getValor());
         Vertice<TIPO> vInicial = getVertice(this.vertices.get(verticeInical).getValor());
 
         if (vInicial != null && vFinal != null) {
-            Aresta<TIPO> newAresta = new Aresta<TIPO>(vInicial, vFinal, peso);
+            Aresta<TIPO> newAresta = new Aresta<TIPO>(vInicial, vFinal, vInicial.getPesoAtvd());
             vInicial.AddArestaSaida(newAresta);
             vFinal.AddArestaEntrada(newAresta);
             this.arestas.add(newAresta);
@@ -237,7 +237,6 @@ public class Grafo<TIPO> {
             for (int jj = 0; jj < vertices.size(); jj++) {
                 if (findAresta(vertices.get(ii), vertices.get(jj)) != null) {
                     matrizAdj[ii][jj] = 1;
-                    System.out.println("Opa");
                 } else {
                     matrizAdj[ii][jj] = 0;
                 }
