@@ -8,9 +8,11 @@ import java.util.Comparator;
 public class Grafo<TIPO> {
     private ArrayList<Vertice<TIPO>> vertices; // atividades
     private ArrayList<Aresta<TIPO>> arestas; // duração das atividades
+    private ArrayList<String> verticesLabelsOrdenadoPorIndex = new ArrayList<>();
     private float startDay; // hora de inicio das atividades
     private float finishDay; // hora de finalização
     private float workingHours; // horas uteis
+    private int[][] matrizAdj;
 
     public Grafo(float start, float finish) {
         this.vertices = new ArrayList<>();
@@ -34,6 +36,7 @@ public class Grafo<TIPO> {
         if (tarefa != null && tipo != null) {
             Vertice<TIPO> newVertice = new Vertice<>(tarefa, tipo, peso);
             this.vertices.add(newVertice);
+            this.verticesLabelsOrdenadoPorIndex.add(tarefa.toString());
             return this.vertices.size() - 1;
         }
         return -1;
@@ -98,6 +101,9 @@ public class Grafo<TIPO> {
     public void gerarGrafoCompleto() {
         for (int i = 0; i < this.getQntdVertices(); i++) {
             for (int j = 0; j < this.getQntdVertices(); j++) {
+                if (i == j) { // !Evita adicionar laços no grafo
+                    continue;
+                }
                 this.AddAresta(i, j);
             }
         }
@@ -114,6 +120,7 @@ public class Grafo<TIPO> {
                 }
             }
         }
+        this.matrizAdj = matrizAdj;
         MostrarMatrizAdj(matrizAdj);
     }
 
@@ -135,6 +142,23 @@ public class Grafo<TIPO> {
         }
     }
 
+    public ArrayList<String> retornaVerticesLabels() {
+        return this.verticesLabelsOrdenadoPorIndex;
+    }
+
+    public ArrayList<Integer> retornaParesVerticesMatrizAdj() {
+        ArrayList<Integer> array = new ArrayList<>();
+
+        for (int linha = 0; linha < this.matrizAdj.length; linha++) {
+            for (int coluna = 0; coluna < this.matrizAdj[linha].length; coluna++) {
+                if (this.matrizAdj[linha][coluna] == 1) {
+                    array.add(linha);
+                    array.add(coluna);
+                }
+            }
+        }
+        return array;
+    }
     /*
      * public int Diametro(){
      * int tamCaminho = 0;
