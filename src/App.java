@@ -18,8 +18,7 @@ public class App {
         // !Escreve nos arquivos
         var pares = g.retornaParesVerticesMatrizAdj();
         EscreverArquivo arq = new EscreverArquivo("../data_graph/saidaGrafoDirecionado.txt",
-                "../data_graph/saidaLabelsVerticesGrafoDirecionado.txt", pares,
-                g.retornaVerticesLabels());
+                g);
         arq.inserir_no_arquivo();
     }
 }

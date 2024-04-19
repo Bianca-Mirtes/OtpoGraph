@@ -22,6 +22,10 @@ public class Grafo<TIPO> {
         this.workingHours = start - finish;
     }
 
+    public int[][] getMatrizAdj() {
+        return this.matrizAdj;
+    }
+
     /**
      * Este método adiciona o vértice ao Grafo
      * 
