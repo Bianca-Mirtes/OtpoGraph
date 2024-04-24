@@ -1,0 +1,20 @@
+0,1,2,'Estudar Grafos','Estudar Rust',1,1
+0,2,2,'Estudar Grafos','Aula Rust',1,0
+0,3,2,'Estudar Grafos','Aula de Natação',1,0
+0,4,2,'Estudar Grafos','Bolsa',1,1
+1,0,2,'Estudar Rust','Estudar Grafos',1,1
+1,2,2,'Estudar Rust','Aula Rust',1,0
+1,3,2,'Estudar Rust','Aula de Natação',1,0
+1,4,2,'Estudar Rust','Bolsa',1,1
+2,0,2,'Aula Rust','Estudar Grafos',0,1
+2,1,2,'Aula Rust','Estudar Rust',0,1
+2,3,2,'Aula Rust','Aula de Natação',0,0
+2,4,2,'Aula Rust','Bolsa',0,1
+3,0,3,'Aula de Natação','Estudar Grafos',0,1
+3,1,3,'Aula de Natação','Estudar Rust',0,1
+3,2,3,'Aula de Natação','Aula Rust',0,0
+3,4,3,'Aula de Natação','Bolsa',0,1
+4,0,5,'Bolsa','Estudar Grafos',1,1
+4,1,5,'Bolsa','Estudar Rust',1,1
+4,2,5,'Bolsa','Aula Rust',1,0
+4,3,5,'Bolsa','Aula de Natação',1,0
